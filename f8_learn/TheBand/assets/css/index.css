@@ -1,0 +1,134 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.header {
+  max-height: 412px;
+}
+
+.header__navigation {
+  height: 46px;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0px 0px 11px -2px #000;
+}
+
+.header-navigation__list {
+  height: 46px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.header-navigation__items {
+  height: 100%;
+  position: relative;
+}
+
+.header-navigation__items:hover .header-navigation-item__submenu {
+  display: block;
+}
+
+.header-navigation-item__submenu {
+  display: none;
+  background-color: white;
+  min-width: 160px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.header-navigation-item-submenu__item-link {
+  padding: 8px 16px;
+  text-transform: capitalize;
+  text-decoration: none;
+  display: block;
+  color: black;
+}
+
+.header-navigation-item-submenu__item-link:hover {
+  background-color: #ccc;
+}
+
+.header-navigation__items-link {
+  height: 100%;
+  color: white;
+  font-size: 15px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+}
+
+.header-navigation__items-link-icon {
+  margin-left: 4px;
+}
+
+.header__search {
+  height: 100%;
+}
+
+.header-search__button {
+  height: 100%;
+  background-color: transparent;
+  outline: transparent;
+  border: none;
+  padding: 12px 24px;
+}
+
+.header-search__button-icon {
+  color: white;
+}
+
+.header-navigation__items:hover .header-navigation__items-link {
+  background-color: #ccc;
+  color: black;
+}
+
+.header-search__button:hover {
+  background-color: #f00;
+}
+
+.header__banner {
+  margin-top: 46px;
+  position: relative;
+  height: 2000px;
+}
+
+.header-banner__img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.header-banner__article {
+  position: absolute;
+  bottom: 50px;
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.header-banner__article-title {
+  text-transform: capitalize;
+  font-size: 24px;
+}
+
+.header-banner__articcle-description {
+  margin-top: 30px;
+  font-size: 15px;
+}/*# sourceMappingURL=index.css.map */

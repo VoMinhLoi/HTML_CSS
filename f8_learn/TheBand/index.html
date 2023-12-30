@@ -5,31 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/font/fontawesome-free-5.15.4-web/fontawesome-free-5.15.4-web/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
     <title>Document</title>
 </head>
 <body>
     <header class="header">
-        <nav class="header_navigation">
-            <div class="header_navigation_list">
-                <li class="header_navigation_items">
-                    <a href="#" class="header_navigation_items-link">home
+        <nav class="header__navigation">
+            <ul class="header-navigation__list">
+                <li class="header-navigation__items">
+                    <a href="#" class="header-navigation__items-link">home
                     </a>
 
                 </li>
-                <li class="header_navigation_items">
-                    <a href="#" class="header_navigation_items-link">band</a></li>
-                <li class="header_navigation_items">
-                    <a href="#" class="header_navigation_items-link">tour</a></li>
-                <li class="header_navigation_items">
-                    <a href="#" class="header_navigation_items-link">contact</a></li>
-                <li class="header_navigation_items">
-                    <a href="#" class="header_navigation_items-link">more
-                        <i class="header-nav-list__icon fab fa-facebook"></i>
-                    </a></li>
-            </div> 
+                <li class="header-navigation__items">
+                    <a href="#" class="header-navigation__items-link">band</a></li>
+                <li class="header-navigation__items">
+                    <a href="#" class="header-navigation__items-link">tour</a></li>
+                <li class="header-navigation__items">
+                    <a href="#" class="header-navigation__items-link">contact</a></li>
+                <li class="header-navigation__items">
+                    <a href="#" class="header-navigation__items-link">more
+                        <i class="header-nav-list__icon fab fa-facebook header-navigation__items-link-icon"></i>
+                    </a>
+                    <ul class="header-navigation-item__submenu">
+                        <li class="header-navigation-item-submenu__item"><a href="" class="header-navigation-item-submenu__item-link">merchandise</a></li>
+                        <li class="header-navigation-item-submenu__item"><a href="" class="header-navigation-item-submenu__item-link">extras</a></li>
+                        <li class="header-navigation-item-submenu__item"><a href="" class="header-navigation-item-submenu__item-link">media</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header__search">
+                <button class="header-search__button">
+                    <i class="header-search__button-icon fab fa-facebook"></i>
+                </button>
+            </div>
         </nav>
-        <div class="banner">
-            <img src="../image/ny.jpg" alt="banner" title="banner">
+        <div class="header__banner">
+            <img class="header-banner__img" src="./assets/image/ny.jpg" alt="banner" title="banner">
+            <div class="header-banner__article">
+                <h1 class="header-banner__article-title">new york</h1>
+                <p class="header-banner__articcle-description">The atmosphere in New York is lorem ipsum.</p>
+            </div>
         </div>
     </header>
 </body>
