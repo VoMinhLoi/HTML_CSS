@@ -10,7 +10,7 @@ ul {
 }
 
 .header {
-  max-height: 412px;
+  max-height: 760px;
 }
 
 .header__navigation {
@@ -106,7 +106,6 @@ ul {
 .header__banner {
   margin-top: 46px;
   position: relative;
-  height: 2000px;
 }
 
 .header-banner__img {
@@ -131,4 +130,180 @@ ul {
 .header-banner__articcle-description {
   margin-top: 30px;
   font-size: 15px;
+}
+
+.section {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 64px 16px;
+}
+
+.section-head__title {
+  font-size: 30px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 10px 0;
+  font-weight: lighter;
+}
+
+.section-head__description {
+  font-size: 15px;
+  margin: 15px 0;
+  color: #7c7c7c;
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.section-body__description {
+  text-align: justify;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.section-body__group {
+  display: flex;
+  padding: 32px;
+}
+
+.section-body-group-member__name {
+  font-size: 15px;
+  margin: 15px 0;
+}
+
+.section-body-group-member__img {
+  width: 60%;
+  border-radius: 4px;
+}
+
+.section-body__list {
+  background-color: white;
+}
+
+.section-body-list__item {
+  padding: 8px 16px;
+  border-bottom: solid 1px #ddd;
+  text-align: left;
+  color: #8b7575;
+  font-size: 15px;
+}
+
+.section-body-list-item-month__span {
+  background-color: red;
+  margin-left: 16px;
+  display: inline-block;
+  padding: 0 8px;
+  color: #fff;
+  line-height: 1.5;
+}
+
+.section-body-list-item-month-span__quantity {
+  background-color: #000;
+  border-radius: 100%;
+  float: right;
+  margin-right: 16px;
+}
+
+.section-body__tickets {
+  margin-top: 32px;
+  display: flex;
+  margin: 32px -8px 0px;
+}
+
+.section-body-tickets__item {
+  width: 33.33%;
+  text-align: left;
+  padding: 0 8px;
+}
+
+.section-body-tickets-item__img {
+  display: block;
+  width: 100%;
+}
+
+.section-body-tickets-item__img:hover {
+  opacity: 0.6;
+}
+
+.section-body-tickets-item__body {
+  background-color: white;
+  padding: 16px;
+  font-size: 15px;
+}
+
+.section-body-tickets-item-body__title {
+  font-size: 15px;
+}
+
+.section-body-tickets-item-body__date {
+  margin-top: 16px;
+  color: #666666;
+}
+
+.section-body-tickets-item-body__description {
+  margin-top: 16px;
+}
+
+.section-body-tickets-item-body__button {
+  background-color: black;
+  color: white;
+  border: none;
+  margin-top: 16px;
+  padding: 8px 16px;
+}
+
+.section__body-contact {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-body__label, .section-body__input {
+  flex: 1;
+}
+
+.section-body-label__name {
+  line-height: 1.5;
+  font-size: 18px;
+  text-align: left;
+}
+
+.section-body-label-name__icon {
+  display: inline-block;
+  width: 40px;
+}
+
+.section-body-input__first {
+  display: flex;
+}
+
+.section-body-input-first__name {
+  padding: 8px;
+  width: 100%;
+  border: solid 1px #ccc;
+  line-height: 1.5;
+  color: #757779;
+  font-size: 16px;
+}
+
+.section-body-input-first__name + .section-body-input-first__name {
+  margin-left: 10px;
+}
+
+.section-body-input__message {
+  margin-top: 10px;
+}
+
+.section-body-contact__button {
+  float: right;
+  background-color: black;
+  color: white;
+  border: none;
+  margin: 16px 0;
+  padding: 8px 16px;
+  text-transform: uppercase;
+}
+
+.contain__map {
+  margin-top: 90px;
+  width: 100%;
 }/*# sourceMappingURL=index.css.map */

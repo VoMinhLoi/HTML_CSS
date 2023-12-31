@@ -1,5 +1,5 @@
 .header {
-    max-height: $header-height;
+    max-height: 760px;
 }
 .header__navigation {
     height: $navigation-height;
@@ -92,7 +92,6 @@
 .header__banner {
     margin-top: $navigation-height;
     position: relative;
-    height: 2000px;
 }
 
 .header-banner__img {
