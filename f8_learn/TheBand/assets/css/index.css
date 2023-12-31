@@ -306,4 +306,25 @@ ul {
 .contain__map {
   margin-top: 90px;
   width: 100%;
+}
+
+.footer {
+  padding: 64px 16px;
+  text-align: center;
+}
+
+.footer-social__item {
+  display: inline-block;
+  font-size: 22px;
+  color: #666;
+}
+
+.copy-right__name {
+  margin: 15px 0;
+  color: #7b7b7b;
+  font-size: 14px;
+}
+
+.copy-right-name-span__link {
+  color: #7b7b7b;
 }/*# sourceMappingURL=index.css.map */
