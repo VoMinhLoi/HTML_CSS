@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.item {
+    display: block;
+    background-color: orange;
+    color: white;
+    text-align: center;
+    // font-size: 40px;
+    // min-width: 380px;
+    min-height: 380px;
+    line-height: 380px;
+}
+
+.main {
+    margin: 0 20px;
+    display: flex;
+}
+
+.content {
+    flex: 1;
+}
+
+.side-bar {
+    background-color: lightblue;
+    width: 300px;
+}
+
+@media (max-width: 1023px){
+    .side-bar {
+        display: none;
+    }
+}
