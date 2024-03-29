@@ -1,7 +1,14 @@
 var $ = document.querySelector.bind(document);
 var $$ = document.querySelectorAll.bind(document);
+var selectorRules = {};
+// Xử lý báo lỗi
 function validate(rule, inputElement, formGroup, errorElement) {
-  var errorMessage = rule.test(inputElement.value);
+  var errorMessage;
+  var rules = selectorRules[rule.selector];
+  for (let i = 0; i < rules.length; i++) {
+    errorMessage = rules[i](inputElement.value);
+    if (errorMessage) break;
+  }
   if (errorMessage) {
     errorElement.innerText = errorMessage;
     formGroup.classList.add("invalid");
@@ -14,6 +21,11 @@ function Validator(option) {
   const form = $(option.form);
   if (form) {
     option.rules.forEach((rule) => {
+      // Lưu lại rule không để rule ghi đè nhau
+      if (Array.isArray(selectorRules[rule.selector]))
+        selectorRules[rule.selector].push(rule.test);
+      else selectorRules[rule.selector] = [rule.test];
+
       var inputElement = form.querySelector(rule.selector);
       var formGroup = inputElement.parentElement;
       var errorElement = formGroup.querySelector(option.errorSelector);
@@ -60,7 +72,6 @@ Validator.minLength = (selector, min, message) => ({
 Validator.isConfirm = (selector, preValue, message) => ({
   selector,
   test(value) {
-    console.log(preValue);
     return value === preValue
       ? undefined
       : message || "Giá trị không chính xác";
