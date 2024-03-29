@@ -16,10 +16,13 @@ function validate(rule, inputElement, formGroup, errorElement) {
     errorElement.innerText = "";
     formGroup.classList.remove("invalid");
   }
+  // Trả về true khi input có lỗi
+  return errorMessage;
 }
 function Validator(option) {
   const form = $(option.form);
   if (form) {
+    // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
     option.rules.forEach((rule) => {
       // Lưu lại rule không để rule ghi đè nhau
       if (Array.isArray(selectorRules[rule.selector]))
@@ -40,6 +43,18 @@ function Validator(option) {
       };
     });
   }
+  // Validate all input để điều kiện thì mới cho submit
+  var registerButton = form.querySelector(".form-submit");
+  registerButton.onclick = (e) => {
+    var isInValid = true;
+    option.rules.forEach((rule) => {
+      var inputElement = form.querySelector(rule.selector);
+      var formGroup = inputElement.parentElement;
+      var errorElement = formGroup.querySelector(option.errorSelector);
+      isInValid = validate(rule, inputElement, formGroup, errorElement);
+      if (isInValid) e.preventDefault();
+    });
+  };
 }
 
 // Kiểm tra giá trị
@@ -72,7 +87,7 @@ Validator.minLength = (selector, min, message) => ({
 Validator.isConfirm = (selector, preValue, message) => ({
   selector,
   test(value) {
-    return value === preValue
+    return value === document.querySelector("#password").value
       ? undefined
       : message || "Giá trị không chính xác";
   },

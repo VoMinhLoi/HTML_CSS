@@ -75,7 +75,9 @@
       form: "#form-1",
       rules: [
         Validator.isRequired("#fullname"),
+        Validator.isRequired("#email"),
         Validator.isEmail("#email"),
+        Validator.isRequired("#password"),
         Validator.minLength("#password", 7),
         Validator.isRequired("#password_confirmation"),
         Validator.isConfirm(
