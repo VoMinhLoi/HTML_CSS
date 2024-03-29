@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="index.js" />
+    <script src="index.js"></script>
     <title>Document</title>
   </head>
   <body>
@@ -70,4 +70,20 @@
       </form>
     </div>
   </body>
+  <script>
+    Validator({
+      form: "#form-1",
+      rules: [
+        Validator.isRequired("#fullname"),
+        Validator.isEmail("#email"),
+        Validator.minLength("#password", 7),
+        Validator.isConfirm(
+          "#password_confirmation",
+          document.querySelector("#password").value,
+          "Mật khẩu không trùng khớp"
+        ),
+      ],
+      errorSelector: ".form-message",
+    });
+  </script>
 </html>
