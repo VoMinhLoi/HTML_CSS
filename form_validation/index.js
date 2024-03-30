@@ -22,6 +22,23 @@ function validate(rule, inputElement, formGroup, errorElement) {
 function Validator(option) {
   const form = $(option.form);
   if (form) {
+    // Validate all input để điều kiện thì mới cho submit
+    form.onsubmit = (e) => {
+      var isInValid = true;
+      var i = 0;
+      option.rules.forEach((rule) => {
+        var inputElement = form.querySelector(rule.selector);
+        var formGroup = inputElement.parentElement;
+        var errorElement = formGroup.querySelector(option.errorSelector);
+        isInValid = validate(rule, inputElement, formGroup, errorElement);
+        // chỉ cần có 1 lỗi sao thì chặn API mặc định của trình duyệt
+        if (isInValid && i == 0) {
+          console.log(i);
+          e.preventDefault();
+          i++;
+        }
+      });
+    };
     // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
     option.rules.forEach((rule) => {
       // Lưu lại rule không để rule ghi đè nhau
@@ -43,24 +60,6 @@ function Validator(option) {
       };
     });
   }
-  // Validate all input để điều kiện thì mới cho submit
-  var registerButton = form.querySelector(".form-submit");
-  registerButton.onclick = (e) => {
-    var isInValid = true;
-    var i = 0;
-    option.rules.forEach((rule) => {
-      var inputElement = form.querySelector(rule.selector);
-      var formGroup = inputElement.parentElement;
-      var errorElement = formGroup.querySelector(option.errorSelector);
-      isInValid = validate(rule, inputElement, formGroup, errorElement);
-      // chỉ cần có 1 lỗi sao thì chặn API mặc định của trình duyệt
-      if (isInValid && i == 0) {
-        console.log(i);
-        e.preventDefault();
-        i++;
-      }
-    });
-  };
 }
 
 // Kiểm tra giá trị
