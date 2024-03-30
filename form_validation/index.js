@@ -58,7 +58,7 @@ function Validator(option) {
         }
       }
     };
-    // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
+    // Validate từng input (lắng nghe sự kiện blur, input, ...)
     option.rules.forEach((rule) => {
       // Lưu lại rule không để rule ghi đè nhau
       if (Array.isArray(selectorRules[rule.selector]))
