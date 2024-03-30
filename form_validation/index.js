@@ -47,12 +47,18 @@ function Validator(option) {
   var registerButton = form.querySelector(".form-submit");
   registerButton.onclick = (e) => {
     var isInValid = true;
+    var i = 0;
     option.rules.forEach((rule) => {
       var inputElement = form.querySelector(rule.selector);
       var formGroup = inputElement.parentElement;
       var errorElement = formGroup.querySelector(option.errorSelector);
       isInValid = validate(rule, inputElement, formGroup, errorElement);
-      if (isInValid) e.preventDefault();
+      // chỉ cần có 1 lỗi sao thì chặn API mặc định của trình duyệt
+      if (isInValid && i == 0) {
+        console.log(i);
+        e.preventDefault();
+        i++;
+      }
     });
   };
 }
