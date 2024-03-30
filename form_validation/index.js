@@ -23,7 +23,14 @@ function Validator(option) {
   const form = $(option.form);
   if (form) {
     // Validate all input để điều kiện thì mới cho submit
-
+    function getParent(element, selector) {
+      while (element.parentElement) {
+        if (element.parentElement.matches(selector)) {
+          return element.parentElement;
+        }
+        element = element.parentElement;
+      }
+    }
     form.onsubmit = (e) => {
       // Chặn lại submit mặc định trình duyệt để có thể fetch API bằng JS
       e.preventDefault();
@@ -32,7 +39,7 @@ function Validator(option) {
       var isValid = true;
       option.rules.forEach((rule) => {
         var inputElement = form.querySelector(rule.selector);
-        var formGroup = inputElement.parentElement;
+        var formGroup = getParent(inputElement, option.formGroupSelector);
         var errorElement = formGroup.querySelector(option.errorSelector);
         isInValid = validate(rule, inputElement, formGroup, errorElement);
         // chỉ cần có 1 lỗi là sẽ gán cho form lỗi ngay
@@ -66,7 +73,7 @@ function Validator(option) {
       else selectorRules[rule.selector] = [rule.test];
 
       var inputElement = form.querySelector(rule.selector);
-      var formGroup = inputElement.parentElement;
+      var formGroup = getParent(inputElement, option.formGroupSelector);
       var errorElement = formGroup.querySelector(option.errorSelector);
       //   Khi blur ra input
       inputElement.onblur = () => {
