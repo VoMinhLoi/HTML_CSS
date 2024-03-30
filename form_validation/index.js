@@ -47,7 +47,8 @@ function Validator(option) {
         if (typeof option.onSubmit === "function") {
           var enableInput = form.querySelectorAll("[name]:not([disabled])");
           var formValues = Array.from(enableInput).reduce((values, input) => {
-            return (values[input.name] = input.value) && values;
+            values[input.name] = input.value || null;
+            return values;
           }, {});
           option.onSubmit(formValues);
         } else {
