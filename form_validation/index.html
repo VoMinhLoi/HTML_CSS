@@ -82,7 +82,6 @@
         Validator.isRequired("#password_confirmation"),
         Validator.isConfirm(
           "#password_confirmation",
-          document.querySelector("#password").value,
           "Mật khẩu không trùng khớp"
         ),
       ],

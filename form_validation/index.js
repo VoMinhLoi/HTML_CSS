@@ -107,7 +107,7 @@ Validator.minLength = (selector, min, message) => ({
   },
 });
 
-Validator.isConfirm = (selector, preValue, message) => ({
+Validator.isConfirm = (selector, message) => ({
   selector,
   test(value) {
     return value === document.querySelector("#password").value
