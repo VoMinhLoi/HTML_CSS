@@ -78,7 +78,7 @@
         Validator.isRequired("#email"),
         Validator.isEmail("#email"),
         Validator.isRequired("#password"),
-        Validator.minLength("#password", 7),
+        Validator.minLength("#password", 1),
         Validator.isRequired("#password_confirmation"),
         Validator.isConfirm(
           "#password_confirmation",
@@ -87,6 +87,11 @@
         ),
       ],
       errorSelector: ".form-message",
+      // Muốn submit không theo API mặc định của trình duyệt
+      onSubmit: function (data) {
+        // fetch API
+        console.log(data);
+      },
     });
   </script>
 </html>

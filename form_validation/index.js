@@ -23,21 +23,39 @@ function Validator(option) {
   const form = $(option.form);
   if (form) {
     // Validate all input để điều kiện thì mới cho submit
+
     form.onsubmit = (e) => {
+      // Chặn lại submit mặc định trình duyệt để có thể fetch API bằng JS
+      e.preventDefault();
       var isInValid = true;
       var i = 0;
+      var isValid = true;
       option.rules.forEach((rule) => {
         var inputElement = form.querySelector(rule.selector);
         var formGroup = inputElement.parentElement;
         var errorElement = formGroup.querySelector(option.errorSelector);
         isInValid = validate(rule, inputElement, formGroup, errorElement);
-        // chỉ cần có 1 lỗi sao thì chặn API mặc định của trình duyệt
+        // chỉ cần có 1 lỗi là sẽ gán cho form lỗi ngay
         if (isInValid && i == 0) {
-          console.log(i);
-          e.preventDefault();
+          isValid = false;
           i++;
         }
       });
+      // Khi form nhập vào không có lỗi nào.
+      if (isValid) {
+        // Trả về dữ liêu người dùng
+        if (typeof option.onSubmit === "function") {
+          var enableInput = form.querySelectorAll("[name]:not([disabled])");
+          var formValues = Array.from(enableInput).reduce((values, input) => {
+            return (values[input.name] = input.value) && values;
+          }, {});
+          option.onSubmit(formValues);
+        } else {
+          // Chỉ để validate bằng js và cho submit để dùng API bằng PHP
+          console.log(1);
+          form.submit();
+        }
+      }
     };
     // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
     option.rules.forEach((rule) => {
