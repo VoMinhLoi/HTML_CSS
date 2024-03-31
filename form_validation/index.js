@@ -6,7 +6,16 @@ function validate(rule, inputElement, formGroup, errorElement) {
   var errorMessage;
   var rules = selectorRules[rule.selector];
   for (let i = 0; i < rules.length; i++) {
-    errorMessage = rules[i](inputElement.value);
+    switch (inputElement.type) {
+      case "checkbox":
+      case "radio":
+        errorMessage = rules[i](
+          formGroup.querySelector(rule.selector + ":checked")
+        );
+        break;
+      default:
+        errorMessage = rules[i](inputElement.value);
+    }
     if (errorMessage) break;
   }
   if (errorMessage) {
@@ -31,7 +40,8 @@ function Validator(option) {
         element = element.parentElement;
       }
     }
-    form.onsubmit = (e) => {
+    var butttonSubmit = form.querySelector(option.buttonSubmitSelector);
+    butttonSubmit.onclick = (e) => {
       // Chặn lại submit mặc định trình duyệt để có thể fetch API bằng JS
       e.preventDefault();
       var isInValid = true;
@@ -52,15 +62,34 @@ function Validator(option) {
       if (isValid) {
         // Trả về dữ liêu người dùng
         if (typeof option.onSubmit === "function") {
-          var enableInput = form.querySelectorAll("[name]:not([disabled])");
-          var formValues = Array.from(enableInput).reduce((values, input) => {
-            values[input.name] = input.value || null;
+          var enableInputs = form.querySelectorAll("[name]");
+          var formValues = Array.from(enableInputs).reduce((values, input) => {
+            switch (input.type) {
+              case "radio":
+                values[input.name] = form.querySelector(
+                  'input[name="' + input.name + '"]:checked'
+                ).value;
+                break;
+              case "checkbox":
+                if (!input.checked) {
+                  // values[input.name] = "";
+                  return values;
+                }
+                if (!Array.isArray(values[input.name])) values[input.name] = [];
+                values[input.name].push(input.value);
+                break;
+              case "file":
+                values[input.name] = input.files;
+                break;
+              default:
+                values[input.name] = input.value || null;
+            }
             return values;
           }, {});
           option.onSubmit(formValues);
         } else {
           // Chỉ để validate bằng js và cho submit để dùng API bằng PHP
-          console.log(1);
+          console.log("Use PHP Auth");
           form.submit();
         }
       }
@@ -72,18 +101,20 @@ function Validator(option) {
         selectorRules[rule.selector].push(rule.test);
       else selectorRules[rule.selector] = [rule.test];
 
-      var inputElement = form.querySelector(rule.selector);
-      var formGroup = getParent(inputElement, option.formGroupSelector);
-      var errorElement = formGroup.querySelector(option.errorSelector);
-      //   Khi blur ra input
-      inputElement.onblur = () => {
-        validate(rule, inputElement, formGroup, errorElement);
-      };
-      //   Khi người dùng nhập vào input
-      inputElement.oninput = () => {
-        errorElement.innerText = "";
-        formGroup.classList.remove("invalid");
-      };
+      var inputElements = form.querySelectorAll(rule.selector);
+      Array.from(inputElements).forEach((inputElement) => {
+        var formGroup = getParent(inputElement, option.formGroupSelector);
+        var errorElement = formGroup.querySelector(option.errorSelector);
+        //   Khi blur ra input
+        inputElement.onblur = () => {
+          validate(rule, inputElement, formGroup, errorElement);
+        };
+        //   Khi người dùng nhập vào input
+        inputElement.oninput = () => {
+          errorElement.innerText = "";
+          formGroup.classList.remove("invalid");
+        };
+      });
     });
   }
 }
@@ -93,7 +124,7 @@ Validator.isRequired = function (selector, message) {
   return {
     selector: selector,
     test: function (value) {
-      return value.trim() ? undefined : message || "Vui lòng nhập trường này";
+      return value ? undefined : message || "Vui lòng nhập trường này";
     },
   };
 };

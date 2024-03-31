@@ -69,6 +69,19 @@ html {
   border-color: #1dbfaf;
 }
 
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input__value {
+  display: flex;
+}
+
+.form-input__value + .form-input__value {
+  margin-top: 10px;
+}
+
 .form-group.invalid .form-control {
   border-color: #f33a58;
 }
