@@ -15,9 +15,9 @@
       }
       .slider {
         position: relative;
-        height: 600px;
-        width: 1066px;
-        margin: auto;
+        /* margin-top: 96px; */
+        height: 695px;
+        /* width: 1066px; */
       }
       @media screen and (max-width: 1065px) {
         .slider {
@@ -66,7 +66,7 @@
 
       .slider-content__context {
         position: absolute;
-        top: 77%;
+        top: 50%;
         text-align: center;
         width: 100%;
         color: white;
@@ -164,7 +164,13 @@
               >
             </div>
           </div>
-          <div class="slider-content-item__list-image"></div>
+          <div class="slider-content-item__list-image">
+            <!-- <img
+              class="slider-content-item__list-image-background"
+              src="test.jpg"
+              alt="slide image"
+            /> -->
+          </div>
         </div>
       </div>
       <div class="slider-navigation slider-navigation--after">
@@ -176,38 +182,39 @@
       </div>
       <ul class="slider-dots"></ul>
     </div>
+
     <script>
       var data = [
         {
           id: 1,
           name: "Slide image 1",
           description: "Description slide image 1",
-          imageURL: "9638119697360919956.jpg",
+          imageURL: "test.jpg",
         },
         {
           id: 2,
           name: "Slide image 2",
           description: "Description slide image 2",
-          imageURL: "1638471272291681066.jpg",
+          imageURL: "test2.jpg",
         },
-        // {
-        //   id: 3,
-        //   name: "Slide image 3",
-        //   description: "Description slide image 3",
-        //   imageURL: "9638119697360919956.jpg",
-        // },
+        {
+          id: 3,
+          name: "Slide image 3",
+          description: "Description slide image 3",
+          imageURL: "test3.jpg",
+        },
         // {
         //   id: 4,
         //   name: "Slide image 4",
         //   description: "Description slide image 4",
         //   imageURL: "1638471272291681066.jpg",
         // },
-        {
-          id: 5,
-          name: "Slide image 3",
-          description: "Description slide image 3",
-          imageURL: "1638462160919985141.jpg",
-        },
+        // {
+        //   id: 5,
+        //   name: "Slide image 3",
+        //   description: "Description slide image 3",
+        //   imageURL: "1638462160919985141.jpg",
+        // },
       ];
       sliderImage(0, data, 5000);
 
