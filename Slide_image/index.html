@@ -16,11 +16,19 @@
       .slider {
         position: relative;
         height: 600px;
+        width: 1066px;
+        margin: auto;
+      }
+      @media screen and (max-width: 1065px) {
+        .slider {
+          width: 100%;
+        }
       }
       .slider-navigation {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        z-index: 1;
       }
       .slider-navigation--prev {
         left: 30px;
@@ -52,7 +60,7 @@
 
       .slider-content,
       .slider-content-item,
-      .slider-content-item__image {
+      .slider-content-item__list-image {
         height: 100%;
       }
 
@@ -62,6 +70,7 @@
         text-align: center;
         width: 100%;
         color: white;
+        z-index: 1;
       }
       .slider-content__context-desc {
         margin: 10px;
@@ -83,13 +92,19 @@
         background-color: rgba(227, 34, 34, 1);
       }
 
-      .slider-content-item__image {
+      .slider-content-item {
+        overflow: hidden;
       }
 
-      .slider-content-item__image-background {
-        display: block;
+      .slider-content-item__list-image {
+        display: flex;
+        /* overflow: hidden; */
+        transition: all ease 0.3s;
+      }
+
+      .slider-content-item__list-image-background {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
       }
       .slider-dots {
@@ -119,15 +134,7 @@
       }
 
       .slider-dots__item-button--active {
-        background: rgba(255, 255, 255, 1);
-      }
-      @keyframes leftToRight {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-100%);
-        }
+        background: rgba(255, 255, 255, 1) !important;
       }
     </style>
     <title>Document</title>
@@ -157,13 +164,7 @@
               >
             </div>
           </div>
-          <div class="slider-content-item__image">
-            <img
-              class="slider-content-item__image-background"
-              src="https://dsu.edu.vn/resources/1/anh/9638119697360919956.jpg"
-              alt="slide image"
-            />
-          </div>
+          <div class="slider-content-item__list-image"></div>
         </div>
       </div>
       <div class="slider-navigation slider-navigation--after">
@@ -173,20 +174,7 @@
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-      <ul class="slider-dots">
-        <li class="slider-dots__item">
-          <button class="slider-dots__item-button"></button>
-        </li>
-        <li class="slider-dots__item">
-          <button class="slider-dots__item-button"></button>
-        </li>
-        <li class="slider-dots__item">
-          <button class="slider-dots__item-button"></button>
-        </li>
-        <li class="slider-dots__item">
-          <button class="slider-dots__item-button"></button>
-        </li>
-      </ul>
+      <ul class="slider-dots"></ul>
     </div>
     <script>
       var data = [
@@ -194,37 +182,109 @@
           id: 1,
           name: "Slide image 1",
           description: "Description slide image 1",
-          imageURL:
-            "https://dsu.edu.vn/resources/1/anh/9638119697360919956.jpg",
+          imageURL: "9638119697360919956.jpg",
         },
         {
           id: 2,
           name: "Slide image 2",
           description: "Description slide image 2",
-          imageURL:
-            "https://dsu.edu.vn/resources/1/anh/1638471272291681066.jpg",
+          imageURL: "1638471272291681066.jpg",
         },
+        // {
+        //   id: 3,
+        //   name: "Slide image 3",
+        //   description: "Description slide image 3",
+        //   imageURL: "9638119697360919956.jpg",
+        // },
+        // {
+        //   id: 4,
+        //   name: "Slide image 4",
+        //   description: "Description slide image 4",
+        //   imageURL: "1638471272291681066.jpg",
+        // },
         {
-          id: 3,
+          id: 5,
           name: "Slide image 3",
           description: "Description slide image 3",
-          imageURL:
-            "https://dsu.edu.vn/resources/1/anh/1638462160919985141.jpg",
-        },
-        {
-          id: 4,
-          name: "Slide image 4",
-          description: "Description slide image 4",
-          imageURL:
-            "https://dsu.edu.vn/resources/1/anh/22638470424382551907.jpg",
+          imageURL: "1638462160919985141.jpg",
         },
       ];
-      // var image = (window.console = document.querySelector(
-      //   ".slider-content-item__image"
-      // ));
-      // setInterval(function () {
-      //   image.style.animation = "leftToRight linear 0.3s forwards";
-      // }, 1000);
+      sliderImage(0, data, 5000);
+
+      function sliderImage(current, slides, time) {
+        var $ = document.querySelector.bind(document);
+        var listImage = $(".slider-content-item__list-image");
+
+        slides.forEach((slide, index) => {
+          listImage.innerHTML += `
+            <img class="slider-content-item__list-image-background" src="${slide.imageURL}" alt="slide image"/>
+          `;
+        });
+        var image_0 = listImage.querySelector(
+          ".slider-content-item__list-image-background"
+        );
+        var imageQuantity = listImage.childElementCount;
+        var listDots = document.querySelector(".slider-dots");
+        for (let i = 0; i < imageQuantity; i++)
+          listDots.innerHTML += `<li class="slider-dots__item"><button class="slider-dots__item-button slider-dots__item-button-${i}" data-set="${i}"></button></li>`;
+        var dotIsActive = listDots.querySelector(
+          ".slider-dots__item-button-" + current
+        );
+        dotIsActive.classList.add("slider-dots__item-button--active");
+
+        // current = 0 Thì mới vào translate 0 thì đứng yên chỗ ban đầu
+        var autoSlide = setInterval(handleChangeSlideAfter, time);
+        var buttonPrev = document.querySelector(
+          ".slider-navigation__button--prev"
+        );
+        buttonPrev.onclick = () => {
+          clearInterval(autoSlide);
+          handleChangeSlidePrev();
+          autoSlide = setInterval(handleChangeSlideAfter, time);
+        };
+        var buttonAfter = document.querySelector(
+          ".slider-navigation__button--after"
+        );
+        buttonAfter.addEventListener("click", () => {
+          clearInterval(autoSlide);
+          handleChangeSlideAfter();
+          autoSlide = setInterval(handleChangeSlideAfter, time);
+        });
+
+        function handleChangeSlidePrev() {
+          const width = image_0.offsetWidth;
+          if (current == 0) {
+            current = imageQuantity - 1;
+            listImage.style.transform = `translateX(${width * -current}px)`;
+          } else {
+            current--;
+            listImage.style.transform = `translateX(${width * -current}px)`;
+          }
+          handleCircle();
+        }
+        function handleChangeSlideAfter() {
+          const width = image_0.offsetWidth;
+          if (current == imageQuantity - 1) {
+            current = 0;
+            listImage.style.transform = "translateX(0px)";
+          } else {
+            ++current;
+            listImage.style.transform = `translateX(${width * -current}px)`;
+          }
+          handleCircle();
+        }
+        function handleCircle() {
+          var dotActiving = listDots.querySelector(
+            ".slider-dots__item-button--active"
+          );
+          if (dotActiving)
+            dotActiving.classList.remove("slider-dots__item-button--active");
+          var dotIsActive = listDots.querySelector(
+            ".slider-dots__item-button-" + current
+          );
+          dotIsActive.classList.add("slider-dots__item-button--active");
+        }
+      }
     </script>
   </body>
 </html>
