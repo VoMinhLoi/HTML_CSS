@@ -153,7 +153,7 @@
                     </div>
                     <input placeholder="Message" type="text" class="section-body-input-first__name section-body-input__message">
                 </div>
-                <button class="button section-body-contact__button">send</button>
+                <button class="button section-body-contact__button" onclick="printPDF()">send</button>
             </div>
             
         </section>
@@ -188,5 +188,15 @@
             </p>
         </div>
     </footer>
+    <script>
+        function printPDF(){
+            var body = document.querySelector("body");
+            var data = document.querySelector(".header").innerHTML;
+
+            document.querySelector("body").innerHTML = data;
+            window.print();
+            // document.querySelector("body").innerHTML = body;
+        }
+    </script>
 </body>
 </html>

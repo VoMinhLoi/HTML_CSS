@@ -104,7 +104,6 @@ function Validator(option) {
       var inputElements = form.querySelectorAll(rule.selector);
       Array.from(inputElements).forEach((inputElement) => {
         var formGroup = getParent(inputElement, option.formGroupSelector);
-        console.log(inputElements);
         var errorElement = formGroup.querySelector(option.errorSelector);
         //   Khi blur ra input
         inputElement.onblur = () => {
