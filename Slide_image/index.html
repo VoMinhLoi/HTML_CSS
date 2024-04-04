@@ -291,6 +291,17 @@
           );
           dotIsActive.classList.add("slider-dots__item-button--active");
         }
+        function chooseImage() {
+          listDots.onclick = (e) => {
+            const width = image_0.offsetWidth;
+            clearInterval(autoSlide);
+            current = Number(e.target.dataset.set);
+            listImage.style.transform = `translateX(${width * -current}px)`;
+            autoSlide = setInterval(handleChangeSlideAfter, time);
+            handleCircle();
+          };
+        }
+        chooseImage();
       }
     </script>
   </body>
